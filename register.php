@@ -1,27 +1,24 @@
 <?php
   require 'loader.php'; //1) carga las clases requeridas y las instancias.
-  $errors = array();
-
   if($_POST){   //2) Si el usuario apretó submit.
     $user = new User($_POST["userName"],$_POST["email"],$_POST["pass"], $_POST["rPass"], $_FILES, $_POST["DOBYear"]); 
     // 3)instanciar el usuario con el POST
     $errors = $validator->validate($user);
     if(count($errors) === 0){
-    // Armar un registro para guardarlo.
+   // Armar un registro para guardarlo.
     // En caso de haber un ávatar, armarlo antes del registro
-    
-    $avatar = $register->avatarConstruct($user->getAvatar());
-    $registro = $register->userFactory($user, $avatar);
-    // Guardar registro EN UN ARCHIVO JSON(Crear función "guardar").
-    guardar($registro);
-    //Si sale todo bien nos vamos al inicio de la página donde nos registr.)
-    header("location: login.php");
-    //Cortamos la ejecución.
-    exit;
-    } */
-
-
+      
+      $avatar = $register->avatarConstruct($user->getAvatar());
+      $registro = $register->userFactory($user, $avatar);
+      // Guardar registro EN UN ARCHIVO JSON(Crear función "guardar").
+      guardar($registro); 
+      //Si sale todo bien nos vamos al inicio de la página donde nos registr.)
+      header("location: login.php");
+      //Cortamos la ejecución.
+      exit; 
+    }
   }
+
 
 ?>
 

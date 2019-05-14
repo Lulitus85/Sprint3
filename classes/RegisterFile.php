@@ -16,15 +16,17 @@ class RegisterFile {
         return $avatar;
     }
 
-    public function userFactory(User $user, $image){
+    public function userFactory(User $registro, $image){
         $user=[
-            "name"=>$user->getUserName(),
-            "email"=>$user->getEmail(),
-            "password"=>password_hash($user->getPass(),PASSWORD_DEFAULT),
+            "name"=>$registro->getUserName(),
+            "email"=>$registro->getEmail(),
+            "password"=>password_hash($registro->getPass(),PASSWORD_DEFAULT),
             "avatar"=>$image
-        ]
+        ];
         return $user;
     }
+
+    
 
 
 

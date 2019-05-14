@@ -44,12 +44,18 @@ class Validator
 
         $year=$user->getYear(); //Buscamos el año que ingresó el usuario
         $hoy = getdate(); //usamos una fc preestablecida para que traiga el array de fecha
-        $hoyY=$hoy["year"]; 
+        $hoyY=$hoy["year"];
         $mayor=$hoyY-18;
-        if(empty($year)){
-            $errors["DOBYear"] = "Por favor, ingrese su <b> fecha de nacimiento </b> ";
-        } elseif($year > $mayor) {
-            $errors["DOBYear"] = "Por políticas de la empresa, sólo se habilitan usuarios <b> mayores de edad </b>";
+        if(isset($year))
+        {
+                if(empty($year))
+                {
+                    $errors["DOBYear"] = "Por favor, ingrese su <b> fecha de nacimiento </b> ";
+                }
+                if($year > $mayor)
+                {
+                    $errors["DOBYear"] = "Por políticas de la empresa, sólo se habilitan usuarios <b> mayores de edad </b>";
+                }
         }
 
         $userFile = $user->getAvatar(); 
@@ -68,6 +74,7 @@ class Validator
         return $errors;
     }
 
+    
     
 
 }
