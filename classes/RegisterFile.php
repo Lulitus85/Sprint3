@@ -7,7 +7,7 @@ class RegisterFile {
         $extension = pathinfo($name,PATHINFO_EXTENSION);
         $sourceFile = $image["avatar"]["tmp_name"];
         $destinationFile = dirname(__DIR__);
-        $destinationFile = $destinationFile."/imagenesUsuario/";
+        $destinationFile = $destinationFile."/imagenesUsuarios/";
         $avatar = uniqid();
         $destinationFile = $destinationFile.$avatar;
         $destinationFile = $destinationFile.".".$extension;

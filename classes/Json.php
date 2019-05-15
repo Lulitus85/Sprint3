@@ -19,6 +19,14 @@ class Json extends Database
         return $this->file;
     }
 
+    public function update(){
+        //
+    }
+    public function delete(){
+        //
+    }
+
+
     public function save($userArray)
     {
         $jsonUsuario = json_encode($userArray); //encripta el archivo y lo mete dentro de la variable
@@ -27,29 +35,39 @@ class Json extends Database
 
     public function read()
     {
-        $results=array();
-        $explodes=explode(PHP_EOL, file_get_contents($this->file));
-        array_pop($explodes);
-
-        foreach($explodes as $value){
-            $results[]=json_decode($explode, true);
-        }
-        return $results;
+        if(file_exists($this->file)){
+            $baseDatos= file_get_contents($this->file);
+            $baseDatos = explode(PHP_EOL,$baseDatos);
+            //Aquí saco el ultimo registro, el cual está en blanco
+            array_pop($baseDatos);
+            //Aquí recooro el array y creo mi array con todos los usuarios 
+            foreach ($baseDatos as $usuarios) {
+                $arrayUsuarios[]= json_decode($usuarios,true);
+            }
+            //Aquí retorno el array de usuarios con todos sus datos
+            return $arrayUsuarios;
+        }else{
+            return null;
+        } 
     }
 
-    public function searchEmail($email) //login
-    {
-        $result=$this->read();
     
-        foreach($result as $user)
-        {
-            if($user['email']==$email)
+    public function searchEmail($email) //register/login
+    {
+        $result = $this->read();
+        if($result !== null){
+            foreach($result as $user)
             {
-                return $user;
+                if($email===$user['email'])
+                {
+                    return $user;
+                }
             }
         }
+        return null;
 
-    }
+      }
+
 
 
 

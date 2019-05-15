@@ -1,22 +1,33 @@
 <?php 
-include_once("controladores/funciones.php");
-if($_POST){
-  dd($_POST["remember"]);
-    $usuario = estaRegistrado($_POST["name"]);
+require 'loader.php';
+if($_POST)
+{
+
+  $user = new User(null,$_POST['email'], $_POST['pass'],null, null, null);
+  $errors= $validator->loginValidate($user);
+  if(count($errors) == 0)
+  {
+     $unNombre = $intenso->searchEmail($user->getEmail());
+     if($unNombre === null)
+     {
+       $errors['email'] = "El usuario no existe";
+     } 
+     
+     if($unNombre !== null){
+       if($auth->validatePass($user->getPass(), $unNombre['password']))
+       {
+        $auth->login($user->getEmail());
+        redirect('perfil.php');
+       } else {
+         $errors['pass']="Algunos de los datos no son correctos";
+       }
+
+     }
+
   
-    if($usuario == null){
-      $errores["name"]="Alguno de los datos no es correcto"; //les meti el mismo mensaje para que no comprometer los datos del usuario
-    } 
-      if(password_verify($_POST["pass"], $usuario["pass"])===false){
-        $errores["pass"]= "Alguno de los datos no es correcto";
-      }
-      
-      if(!isset($errores)){ //si NO esta seteado $errores va a ir a tu perfil
-    iniciarSesion($usuario, $_POST);
-    header("location: profile.php");
-  }
   }
 
+}
 
 ?> 
 
@@ -34,17 +45,19 @@ if($_POST){
           <div class="cajita">
          
             <h1>Inicio sesion!</h1>
+           
             <?php
-      if(isset($errores)):?>
+      if(isset($errors)):?>
         <ul class="alert alert-danger">
           <?php
-          foreach ($errores as $key => $value) :?>
+          foreach ($errors as $key => $value) :?>
             <li> <?=$value;?> </li>
             <?php endforeach;?>
         </ul>
       <?php endif;?>
+
             <form action="" method="POST">
-                <input class="inputLogin" type="text" name="name" placeholder="Usuario" value="<?=(isset($errores["name"])) ?  "" : inputUser("name");?>" placeholder="Nombre de usuario...">
+                <input class="inputLogin" type="text" name="email" placeholder="Correo Electrónico" value="">
                 <a href="#">Olvidó su nombre de usuario?</a>
                 <input class="inputLogin" type="password" name="pass" placeholder="Contraseña">
                 <a href="#">Olvidó su contraseña?</a>

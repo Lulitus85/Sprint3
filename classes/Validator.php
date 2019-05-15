@@ -16,8 +16,7 @@ class Validator
         if(isset($email)){
             if(empty($email)){
                 $errors["email"] = "el campo <b> Correo Electrónico </b> no puede estar vacío";
-            }
-            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            } else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
                 $errors["email"] = "el campo <b> Correo Electrónico </b> no es válido";
             }
         }
@@ -52,8 +51,9 @@ class Validator
                 {
                     $errors["DOBYear"] = "Por favor, ingrese su <b> fecha de nacimiento </b> ";
                 }
-                if($year > $mayor)
+                if($year > $mayor) 
                 {
+                
                     $errors["DOBYear"] = "Por políticas de la empresa, sólo se habilitan usuarios <b> mayores de edad </b>";
                 }
         }
@@ -74,8 +74,28 @@ class Validator
         return $errors;
     }
 
-    
-    
+
+    public function loginValidate(User $user)
+    {
+        $errors = array();
+
+        $email=trim($user->getEmail());
+        if(isset($email)){
+            if($email == ""){
+                $errors["email"] = "el campo <b> Correo Electrónico </b> no puede estar vacío";
+            }
+        }
+
+        $pass=trim($user->getPass());
+        if(isset($pass)){
+            if(empty($pass)){
+                $errors["pass"] = "el campo <b> Contraseña </b> es obligatorio";
+            }
+
+        }
+
+        return $errors;
+
+    }
 
 }
-

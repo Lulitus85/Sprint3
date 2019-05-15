@@ -7,15 +7,20 @@
     if(count($errors) === 0){
    // Armar un registro para guardarlo.
     // En caso de haber un ávatar, armarlo antes del registro
+      $existingEmail = $intenso->searchEmail($user->getEmail());
+      if($existingEmail !== null){
+        $errors['email']="Ya hay un <b> usuario registrado </b> con este Correo Electrónico";
+      } else {
+        $avatar = $register->avatarConstruct($user->getAvatar());
+        $registro = $register->userFactory($user, $avatar);
       
-      $avatar = $register->avatarConstruct($user->getAvatar());
-      $registro = $register->userFactory($user, $avatar);
       // Guardar registro EN UN ARCHIVO JSON(Crear función "guardar").
-      guardar($registro); 
+      $intenso->save($registro); 
       //Si sale todo bien nos vamos al inicio de la página donde nos registr.)
-      header("location: login.php");
+      redirect('login.php');
       //Cortamos la ejecución.
       exit; 
+     }
     }
   }
 
@@ -72,11 +77,11 @@
 
             <h1>Registro!</h1>
             <form class="formularioRegister" action="" method="POST" enctype="multipart/form-data">
-                <input class="inputForm" type="text" name="userName" placeholder="Usuario" value=""> <!--persistencia de datos ;-->
-                <input class="inputForm" type="text" name="email" placeholder="Correo electrónico" value=""><!--persistencia de datos :D-->
+                <input class="inputForm" type="text" name="userName" placeholder="Usuario" value="<?=isset($errors["userName"])? "":inputUsuario("userName");?>"> <!--persistencia de datos ;-->
+                <input class="inputForm" type="text" name="email" placeholder="Correo electrónico" value="<?=isset($errors["email"])? "":inputUsuario("email");?>"><!--persistencia de datos :D-->
                 <input class="inputForm" type="password" name="pass" placeholder="Contraseña">
                 <input class="inputForm" type="password" name="rPass" placeholder="Confirmar contraseña">
-                <input  type="file" name="avatar" value=""/>
+                <input  type="file" name="avatar" value="<?=isset($errors["avatar"])? "":inputFile("avatar");?>"/>
           
                 <p class="ldob" for="DOB">Fecha de Nacimiento</p>
                 <div class="dob">

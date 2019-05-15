@@ -26,4 +26,18 @@ function guest(){ //checkea que la sesion NO este iniciada en el mail (o sea que
     return !check();
 }
 
+function inputUsuario($usuario)
+{
+    if(isset($_POST[$usuario])){
+        return $_POST[$usuario];
+    }
+}
+
+function inputFile($usuario){
+    if(isset($_FILE[$usuario])){
+        return $_FILE[$usuario];
+    }
+}
+
+
 ?>

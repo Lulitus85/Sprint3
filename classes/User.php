@@ -9,14 +9,14 @@ class User
     private $avatar;
     private $year;
 
-    public function __construct($userName, $email, $pass, $rPass, $avatar, $year) 
+    public function __construct($userName=null,  $email, $pass, $rPass=null, $avatar=null, $year=null) 
     {
-        $this->userName = $userName;
+        $this->userName = $userName;     
         $this->email = $email;
         $this->pass = $pass;
-        $this->rPass = $rPass; 
-        $this->avatar = $avatar;
-        $this->year = $year;
+        $this->rPass=$rPass;
+        $this->avatar=$avatar;
+        $this->year=$year;
     }
 
     //SETS//
