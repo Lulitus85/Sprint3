@@ -1,8 +1,11 @@
 <?php
-include_once("controladores/funciones.php");
-if(!isset($_SESSION["name"])){
-    header("location:login.php");
+require 'loader.php';
+
+if(guest()) {
+  redirect('login.php');
 }
+$user = $_SESSION['email'];
+
 ?>
 
 <?php include_once 'includes/__head.php'; ?>

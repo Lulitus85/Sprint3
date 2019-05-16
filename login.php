@@ -11,22 +11,23 @@ if($_POST)
      if($unNombre === null)
      {
        $errors['email'] = "El usuario no existe";
-     } 
-     
-     if($unNombre !== null){
-       if($auth->validatePass($user->getPass(), $unNombre['password']))
-       {
-        $auth->login($user->getEmail());
-        redirect('perfil.php');
-       } else {
-         $errors['pass']="Algunos de los datos no son correctos";
-       }
+     } else {
+          if($auth->validatePass($user->getPass(), $unNombre['password']) != true) {
+            $errors['pass']= "Algunos de los datos no son correctos";
+          } else {
+            $auth->seteoSesion($unNombre);
+              if(isset($_POST['remember'])){
+                $auth->seteoCookie($unNombre);
+              }
 
+              if($auth->validarUsuario()){
+                redirect('profile.php');
+              } else{
+                redirect('login.php');
+              }
+          }
      }
-
-  
   }
-
 }
 
 ?> 
