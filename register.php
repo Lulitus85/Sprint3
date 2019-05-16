@@ -56,7 +56,7 @@
         <b>Pero no te desanimes!</b> Si no tienes nada que ofrecer, que
         sea de interés para tu ofertante, el puede subastártelo!
         <br>
-        <b> <i> Bienvenido a VINTRASH, donde el deshecho de uno es
+        <b> <i> Bienvenido a VINTRASH, donde el desecho de uno es
         el tesoro de otro. </i> </b>
       </p>
     </div>
