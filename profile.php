@@ -24,13 +24,32 @@ $user = $_SESSION['email'];
 <!-- AQUI TERMINA EL NAV -->
 
 <!--CUERPO DE BIENVENIDA-->
-<div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="imagenesUsuarios/<?=$_SESSION["avatar"];?>" alt="foto usuario"> <!--aca embebo la foto de perfil del usuario en la carta-->
-  <div class="card-body">
+
+<div class="general">
+    
+  <div class="contenedor">
+    
+    <div class="marco">
+    
+    <div class="marco-foto">   
+      <img src="img/marco_fotoPerfil2.svg" alt="marco">
+      </div>
+      
+      <div class="foto">  
+      <img src="imagenesUsuarios/<?=$_SESSION["avatar"];?>" alt="Foto_perfil">
+      </div>
+    
+    </div>
+      
+    <div class="card">
     <p class="card-text">Bienvenid@ <?=$_SESSION["name"];?></p>
-    <h6><a href = "logout.php">Cerrar sesion</a></h6> <!-- aca es el link de cerrar sesion -->
+    <h6><a href = "logout.php">Cerrar sesion</a></h6> 
+    <!-- aca es el link de cerrar sesion -->
+    </div>
+
   </div>
 </div>
+
 <!--FIN CUERPO BIENVENIDA-->
 
 <!-- AQUI EMPIEZA EL FOOTER -->

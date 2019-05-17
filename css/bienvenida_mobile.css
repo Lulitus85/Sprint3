@@ -38,10 +38,51 @@ html{
   }
 
   .card{
-      margin-top: 40%;
+      margin:0;
       margin-bottom: 10%;
       
   }
+  .general{
+      width: 100vw;
+      margin-top:20%;
+      margin-bottom:20%;
+  }
+
+
+  /* BORRAR NUEVO DESDE ACA*/
+  .contenedor{
+      width:65%;
+  }
+
+  .marco{
+      width:100%;
+      height: 450px;
+  }
+
+  .marco-foto img{
+      position: relative;
+      top:140px;
+      z-index:90;
+      align-self:center;
+      width: 200%;      
+  }
+
+  .foto{
+      width:100%;
+  }
+
+  .foto img {
+        width: 100%;
+        border-radius: 50%;
+        position: relative;
+        bottom:100px;
+        align-self:center;
+      }
+
+
+
+
+
 /* -----------------------MEDIAQUERIES---------------------- */
 
 

@@ -57,11 +57,20 @@
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 320px) and (max-width: 450px) {
     .faq h1{
-    margin-top: 10vh;
+    margin-top: 15vh;
+    margin-bottom: 10vh;
     padding: 0;
     text-align: center;
-    line-height: 45px;
+    line-height: 30px;
+    font-size: 4em;
 }
+
+    .faq h3{
+        font-size:1.3em;
+        text-align: center;
+        font-weight: bold;
+        margin: 0;
+    }
     .boxes{
     width: 100vw;
     display:flex;
@@ -72,11 +81,30 @@
 
     .left{
     width: 100%;
-
 }
+
     .right{
     width: 100%;
+}
 
+    .left p{
+        text-align: center;
+    }
+
+    .right p{
+        text-align: center;
+    }
+
+    .adm{
+        width:8%;
+        margin:0 0 0 10px;
+        display:inline-block;
+}
+
+    .cool{
+        width:25%;
+        margin:5px 0 0 10px;
+        display:inline-block;
 }
 
 }
@@ -90,6 +118,7 @@
         line-height: 45px;
         margin-top: 0.5em;
     }
+
     .boxes{
         width: 100vw;
         display:flex;
@@ -106,10 +135,37 @@
         width: 100%;
 
     }
+    
+    .adm{
+        width:3%;
+        margin:0 0 0 10px;
+        display:inline-block;
+    }
+
+    .cool{
+        width:11%;
+        margin:0 0 0 10px;
+        display:inline-block;
+    }
+
 }
-
-
 
 
 /* // Medium devices (tablets, 768px and up) */
 /* FIN ESTILOS F A Q */
+
+@media (min-width: 768px){
+
+   .adm{
+        width:7%;
+        margin:0 0 0 10px;
+        display:inline-block;
+    }
+    
+    .cool{
+        width:20%;
+        margin:0 0 0 10px;
+        display:inline-block;
+    }
+
+}
