@@ -8,28 +8,26 @@ class Validator
         $userName=trim($user->getUserName());
         if(isset($userName)){
             if(empty($userName)){
-                $errors["userName"] = "el campo <b> Usuario </b> no puede estar vacío";
+                $errors["userName"] = "El campo <b> Usuario </b> no puede estar vacío";
             }
         }
 
         $email=trim($user->getEmail());
         if(isset($email)){
             if(empty($email)){
-                $errors["email"] = "el campo <b> Correo Electrónico </b> no puede estar vacío";
+                $errors["email"] = "El campo <b> Correo Electrónico </b> no puede estar vacío";
             } else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                $errors["email"] = "el campo <b> Correo Electrónico </b> no es válido";
+                $errors["email"] = "El campo <b> Correo Electrónico </b> no es válido";
             }
         }
 
         $pass=trim($user->getPass());
         if(isset($pass)){
-            if(empty($pass)){
-                $errors["pass"] = "el campo <b> Contraseña </b> es obligatorio";
-            }
-            if(strlen($pass) < 6){
+            if($pass==""){
+                $errors["pass"] = "El campo <b> Contraseña </b> es obligatorio";
+            } else if(strlen($pass) < 6){
                 $errors["pass"] = "La <b> Contraseña </b> no puede ser menor a 6 dígitos y debe tener al menos una letra minúscula, una mayúscula y un número";
-            }
-            if(!preg_match('`[a-z]`',$pass) || !preg_match('`[A-Z]`',$pass)  || !preg_match('`[0-9]`',$pass)){
+            } else if(!preg_match('`[a-z]`',$pass) || !preg_match('`[A-Z]`',$pass)  || !preg_match('`[0-9]`',$pass)){
                 $errors["pass"] = "La <b> Contraseña </b> no puede ser menor a 6 dígitos y <b> debe tener al menos una letra minúscula, una mayúscula y un número </b>";
             }
         }    
@@ -41,21 +39,11 @@ class Validator
             }
         }
 
-        $year=$user->getYear(); //Buscamos el año que ingresó el usuario
-        $hoy = getdate(); //usamos una fc preestablecida para que traiga el array de fecha
-        $hoyY=$hoy["year"];
-        $mayor=$hoyY-18;
-        if(isset($year))
-        {
-                if(empty($year))
-                {
-                    $errors["DOBYear"] = "Por favor, ingrese su <b> fecha de nacimiento </b> ";
-                }
-                if($year > $mayor) 
-                {
-                
-                    $errors["DOBYear"] = "Por políticas de la empresa, sólo se habilitan usuarios <b> mayores de edad </b>";
-                }
+        //edad
+        if(!strcmp($_POST["DOBDay"],"Day") || !strcmp($_POST["DOBMonth"],"Month") || !strcmp($_POST["DOBYear"],"Year")){
+            $errors["Year"] = "Debe completar su <b> Fecha de Nacimiento </b>";
+        } elseif($_POST["DOBYear"] >= (date("Y")-18)){
+            $errors["Year"] = "Por políticas de la empresa, sólo se habilitan usuarios <b> mayores de edad </b>";
         }
 
         $userFile = $user->getAvatar(); 
@@ -82,14 +70,14 @@ class Validator
         $email=trim($user->getEmail());
         if(isset($email)){
             if($email == ""){
-                $errors["email"] = "el campo <b> Correo Electrónico </b> no puede estar vacío";
+                $errors["email"] = "El campo <b> Correo Electrónico </b> no puede estar vacío";
             }
         }
 
         $pass=trim($user->getPass());
         if(isset($pass)){
             if(empty($pass)){
-                $errors["pass"] = "el campo <b> Contraseña </b> es obligatorio";
+                $errors["pass"] = "El campo <b> Contraseña </b> es obligatorio";
             }
 
         }

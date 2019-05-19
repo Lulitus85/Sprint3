@@ -65,25 +65,46 @@
      <!-- Mostrar errores al usuario. -->
         <?php
           if(isset($errors)):?>
-           <ul class="alert alert-danger">
-            <?php
-             foreach ($errors as $key => $value): ?>
-             <li> <?= $value; ?> </li>
-             <?php endforeach; ?>
-           </ul>
-           <img src="img/BOOM-01.svg" alt="rompiste_todo_mach@" width=30%> 
+            <img src="img/BOOM-01.svg" alt="rompiste_todo_mach@" width=30%> 
         <?php endif; ?>
 
 
             <h1>Registro!</h1>
             <form class="formularioRegister" action="" method="POST" enctype="multipart/form-data">
-                <input class="inputForm" type="text" name="userName" placeholder="Usuario" value="<?=isset($errors["userName"])? "":inputUsuario("userName");?>"> <!--persistencia de datos ;-->
+                <input class="inputForm" type="text" name="userName" placeholder="Usuario" value="<?=isset($errors["userName"])? "" :inputUsuario("userName");?>">
+                <!--persistencia de datos ;-->
+                <?php if(isset($errors['userName'])):?>
+                <span class="errors"> <?=$errors['userName'] ?></span>
+                <?php endif;?>
+
                 <input class="inputForm" type="text" name="email" placeholder="Correo electrónico" value="<?=isset($errors["email"])? "":inputUsuario("email");?>"><!--persistencia de datos :D-->
+                <?php if(isset($errors['email'])):?>
+                <span class="errors"> <?=$errors['email'] ?></span>
+                <?php endif;?>
+                
                 <input class="inputForm" type="password" name="pass" placeholder="Contraseña">
+                <?php if(isset($errors['pass'])):?>
+                <span class="errors"> <?=$errors['pass'] ?></span>
+                <?php endif;?>                
+                
                 <input class="inputForm" type="password" name="rPass" placeholder="Confirmar contraseña">
-                <input  type="file" name="avatar" value="<?=isset($errors["avatar"])? "":inputFile("avatar");?>"/>
-          
+                <?php if(isset($errors['pass-ver'])):?>
+                <span class="errors"> <?=$errors['pass-ver'] ?></span>
+                <?php endif;?>
+
+                <div class=button>
+                  
+                <input class="avatar" type="file" name="avatar" value="<?=isset($errors["avatar"])? "":inputFile("avatar");?>"/>
+                <p>Agrega tu Avatar</p>
+                </div>
+                <?php if(isset($errors['avatar'])):?>
+                <span class="errors errors2"> <?=$errors['avatar'] ?></span>
+                <?php endif;?>
+                
+
+                
                 <p class="ldob" for="DOB">Fecha de Nacimiento</p>
+               
                 <div class="dob">
                         <select name="DOBDay">
                             <option>Day</option>
@@ -227,7 +248,12 @@
                             <option value="1931">1931</option>
                             <option value="1930">1930</option>
                         </select>
+                        
                     </div>
+                    <?php if(isset($errors['Year'])):?>
+                <span class="errors"> <?=$errors['Year'] ?></span>
+                <?php endif;?>
+                <br>
                 <button class="submitRegister" type="submit" name="submit">Enviar</button>
             </form>
         </div>

@@ -25,26 +25,18 @@ $user = $_SESSION['email'];
 
 <!--CUERPO DE BIENVENIDA-->
 
-<div class="general">
-    
-  <div class="contenedor">
-    
-    <div class="marco">
-    
-    <div class="marco-foto">   
-      <img src="img/marco_fotoPerfil2.svg" alt="marco">
-      </div>
-      
-      <div class="foto">  
-      <img src="imagenesUsuarios/<?=$_SESSION["avatar"];?>" alt="Foto_perfil">
-      </div>
-    
+<div class="contenedorPerfil">
+
+  <div class="card">
+
+    <div class="imagen">
+      <img class="card-img-top" src="imagenesUsuarios/<?=$_SESSION["avatar"];?>" alt="foto usuario">
+      <!--aca embebo la foto de perfil del usuario en la carta-->
     </div>
-      
-    <div class="card">
-    <p class="card-text">Bienvenid@ <?=$_SESSION["name"];?></p>
-    <h6><a href = "logout.php">Cerrar sesion</a></h6> 
-    <!-- aca es el link de cerrar sesion -->
+
+    <div class="card-body">
+      <p class="card-text"><?=$_SESSION["name"];?></p>
+      <h6><a href="logout.php">Cerrar sesion</a></h6> <!-- aca es el link de cerrar sesion -->
     </div>
 
   </div>

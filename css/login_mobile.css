@@ -170,6 +170,16 @@ transition:450ms;
 padding: 0.1em;
 }
 
+.errors{
+    color:red;
+    padding:0 0 20px 0;
+  }
+
+  .errors li{
+      list-style-type: none;
+      text-align: center;
+  }
+
 
 /* -----------------------MEDIAQUERIES---------------------- */
 
@@ -209,6 +219,7 @@ border-radius: .2em;
 
 .cajita h1{
 font-size: 6em;
+margin:0;
 }
 
 .inputLogin{

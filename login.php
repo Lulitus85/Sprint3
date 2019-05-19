@@ -10,10 +10,10 @@ if($_POST)
      $unNombre = $intenso->searchEmail($user->getEmail());
      if($unNombre === null)
      {
-       $errors['email'] = "El usuario no existe";
+       $errors['email'] = "Algunos de los datos <b>no</b> son correctos";
      } else {
           if($auth->validatePass($user->getPass(), $unNombre['password']) != true) {
-            $errors['pass']= "Algunos de los datos no son correctos";
+            $errors['email']= "Algunos de los datos <b>no</b> son correctos";
           } else {
             $auth->seteoSesion($unNombre);
               if(isset($_POST['remember'])){
@@ -44,23 +44,28 @@ if($_POST)
 
         <main class="login">
           <div class="cajita">
-         
-            <h1>Inicio sesion!</h1>
-           
-            <?php
-      if(isset($errors)):?>
-        <ul class="alert alert-danger">
-          <?php
-          foreach ($errors as $key => $value) :?>
-            <li> <?=$value;?> </li>
-            <?php endforeach;?>
-        </ul>
-      <?php endif;?>
 
+          <?php
+      if(isset($errors)):?>
+        <img src="img/crash-01.svg" alt="rompiste_todo_mach@" width=40%> 
+      <?php endif;?>
+         <br>
+            <h1>Inicio sesion!</h1>
+       
             <form action="" method="POST">
-                <input class="inputLogin" type="text" name="email" placeholder="Correo Electrónico" value="">
-                <a href="#">Olvidó su nombre de usuario?</a>
+                <input class="inputLogin" type="text" name="email" placeholder="Correo Electrónico" value="<?=isset($errors["email"])?"":inputUsuario("email");?>">
+                <a href="#">Olvidó su Correo Electrónico?</a>
+                
+                <?php if(isset($errors['email'])):?>
+                <span class="errors"> <?=$errors['email'] ?></span>
+                <?php endif;?>
+                
                 <input class="inputLogin" type="password" name="pass" placeholder="Contraseña">
+                <?php if(isset($errors['pass'])):?>
+                <span class="errors"> <?=$errors['pass'] ?></span>
+                <?php endif;?>
+
+
                 <a href="#">Olvidó su contraseña?</a>
                 <p>Recordarme<input class="inputLogin" class="check" type="checkbox" name="remember"></p>
                 <button class="submitLogin" type="submit">Enviar</button>
