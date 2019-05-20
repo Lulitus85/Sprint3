@@ -131,12 +131,48 @@ input:focus::-webkit-input-placeholder {
 
 }
 
+.button{
+  position: relative;
+  margin: 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+.button p{
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 15px 15px;
+  font-family: 'Wrestlemania',Arial, Helvetica, sans-serif;
+  font-size: 1.8em;
+  line-height: 0.5em;
+  color: #353434;
+  margin: 1% 0;
+  border: 1px solid gray;
+  border-radius: 0.2em;
+  cursor: pointer;
+
+}
+
+ .button .avatar{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right:0;
+  width: 100%;
+  cursor: pointer;
+  opacity: 0;
+
+} 
+
+
 .ldob{
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
     color:#757575;
     margin: 0;
     padding-top: 20px;
+    
 
 }
 
@@ -152,6 +188,7 @@ input:focus::-webkit-input-placeholder {
   border-radius: 0.5em;
   border: 1px solid black;
   outline: none;
+  width:32%;  
 }
 
 button{
@@ -192,40 +229,6 @@ button:hover{
     transition:450ms;
 }
 
-.button{
-  position: relative;
-  align-self: flex-start;
-  margin: 0;
-  width: 100%;
-  cursor: pointer;
-}
-
-.button p{
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 15px 15px;
-  font-family: 'Wrestlemania',Arial, Helvetica, sans-serif;
-  font-size: 1.8em;
-  line-height: 0.5em;
-  color: #353434;
-  margin: 1% 0;
-  border: 1px solid gray;
-  border-radius: 0.2em;
-  cursor: pointer;
-
-}
-
- .button .avatar{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right:0;
-  width: 100%;
-  cursor: pointer;
-  opacity: 0;
-
-} 
 
 
 .errors{
@@ -233,6 +236,7 @@ button:hover{
   text-align: left;
   margin:0 10px;
   padding:5px 0;
+  font-size:0.8em;
 
 }
 
@@ -420,12 +424,12 @@ form input{
 .dob select{
 background-color: white;
 }
-}
 
 
 .button p{
-  width: 60%;
-  }
+  width: 100%;
+  
+}
 
 
 
@@ -435,5 +439,5 @@ background-color: white;
   list-style-type: none;
 }
 
-
+}
 /*FIN ESTILOS REGISTER*/

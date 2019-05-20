@@ -40,6 +40,9 @@
     color: red !important;
     transition: 300ms!important;
   }
+
+
+
   
   
   /* MEDIA QUERIES NAVBAR (UNICA MEDIDA 990PX, PARA MAS PEQUEÑO YA ESTA HECHO.) */
@@ -62,6 +65,8 @@
       .nav-item{
         border: none;
       }
+
+  
   
   
   }
