@@ -1,6 +1,6 @@
----------------------------
+/*---------------------------
 /*REGISTER MOBILE FIRST*/
----------------------------
+/*---------------------------*/
 /*cambio esto aca*/
 
 @font-face {
@@ -64,6 +64,54 @@ src: url(../Fonts/frutiger/FrutigerLTStd-Cn.otf);
 
 
 
+    .caja-productos{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+    .productos-perfil{
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .producto-individual{
+        width: 30vh;
+    }
+
+    .imagen-producto{
+        width: 100%;
+        display: flex;
+        flex-direction:row;
+        flex-wrap: wrap;
+        justify-content: center;
+        
+    }
+    .nombre-categoria{
+        font-family: Wrestlemania;
+        font-size: 3em;
+        line-height: 0.7;
+    }
+    .nombre-subcategoria{
+        font-family: Frutiger;
+    }
+    .nombre-producto{
+        font-family: Frutiger;
+    }
+    .ver-fotos{
+        font-family: Frutiger;
+    }
+
+    img.solicitar {
+        z-index: 10;
+        width: 15vh;
+        margin-inline-start: 17vh;
+        margin-top: -7vh;
+    }
+    
     /* -----------------------MEDIAQUERIES---------------------- */
 
 
