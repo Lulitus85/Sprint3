@@ -5,22 +5,32 @@
     // 3)instanciar el usuario con el POST
     $errors = $validator->validate($user);
     if(count($errors) === 0){
-   // Armar un registro para guardarlo.
-    // En caso de haber un ávatar, armarlo antes del registro
-      $existingEmail = $intenso->searchEmail($user->getEmail());
-      if($existingEmail !== null){
-        $errors['email']="Ya hay un <b> usuario registrado </b> con este Correo Electrónico";
-      } else {
-        $avatar = $register->avatarConstruct($user->getAvatar());
-        $registro = $register->userFactory($user, $avatar);
       
-      // Guardar registro EN UN ARCHIVO JSON(Crear función "guardar").
-      $intenso->save($registro); 
-      //Si sale todo bien nos vamos al inicio de la página donde nos registr.)
+
+      Querys::saveUser($user, 'users', $pdo);
       redirect('login.php');
       //Cortamos la ejecución.
       exit; 
-     }
+   
+   
+      // ---> CODIGO PROGRAMACIÓN ORIENTADA A OBJETOS <--- //
+      // Armar un registro para guardarlo.
+      // En caso de haber un ávatar, armarlo antes del registro
+      
+      //$existingEmail = $intenso->searchEmail($user->getEmail());
+      //if($existingEmail !== null){
+      //  $errors['email']="Ya hay un <b> usuario registrado </b> con este Correo Electrónico";
+      //} else {
+      //  $avatar = $register->avatarConstruct($user->getAvatar());
+      //  $registro = $register->userFactory($user, $avatar);
+      
+      // Guardar registro EN UN ARCHIVO JSON(Crear función "guardar").
+      //$intenso->save($registro); 
+      //Si sale todo bien nos vamos al inicio de la página donde nos registr.)
+      //redirect('login.php');
+      //Cortamos la ejecución.
+      //exit; 
+     //}
     }
   }
 

@@ -13,14 +13,14 @@ require 'classes/Querys.php';
 
 //Declaro mis variables
 $host = "localhost";
-$bd = "vintrash_db";
+$bd_nombre = "vintrash_db";
 $usuario = "root";
-$password = "root";
+$password = "";
 $puerto = "3306";
 $charset = "utf8mb4";
 //Ojo: Para los que trabajan con MAC: deben colocar el puerto: 8889
 
-$pdo = BaseMySql::conexion($host,$bd,$usuario,$password,$puerto,$charset);
+$pdo = BaseMySql::conexion($host,$bd_nombre,$usuario,$password,$puerto,$charset);
 
 session_start();
 

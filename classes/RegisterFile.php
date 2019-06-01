@@ -2,7 +2,7 @@
 
 class RegisterFile {
 
-    public function avatarConstruct($image){
+    static public function avatarConstruct($image){
         $name = $image["avatar"]["name"];
         $extension = pathinfo($name,PATHINFO_EXTENSION);
         $sourceFile = $image["avatar"]["tmp_name"];
