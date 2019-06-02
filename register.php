@@ -8,7 +8,8 @@
    // Armar un registro para guardarlo.
     // En caso de haber un ávatar, armarlo antes del registro
       $existingEmail = $intenso->searchEmail($user->getEmail());
-      if($existingEmail !== null){
+      
+      if($existingEmail !== false){
         $errors['email']="Ya hay un <b> usuario registrado </b> con este Correo Electrónico";
       } else {
         $avatar = $register->avatarConstruct($user->getAvatar());
