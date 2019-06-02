@@ -18,9 +18,18 @@ class Querys{
 
         $stmt->execute();
 
-
-        
-
-
     }
+
+    //para leer la base de datos, trae toda la info de una tabla --> ver $random en loader.php.
+    
+    static public function selectAll($tabla, $pdo){
+        $search="SELECT * FROM $tabla";
+        $result= $pdo->prepare($search);
+        $result->execute();
+        $info = $result->fetchAll(PDO::FETCH_ASSOC);
+        return $info; 
+    }
+
+
+
 }

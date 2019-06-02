@@ -26,7 +26,25 @@ class BaseMySql extends Database
         // ;
     }
     public function read(){
-        // ;
+        //;
     }
+
+    static public function searchEmail($email, $tabla, $pdo) //register/login
+    {
+        $result = Querys::selectAll($tabla,$pdo);
+        if($result !== null){
+            foreach($result as $user)
+            {
+                if($email===$user['user_email'])
+                {
+                    return $user;
+                }
+            }
+        }
+        return null;
+
+      }
+
+
 
 } 

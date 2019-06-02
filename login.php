@@ -7,7 +7,8 @@ if($_POST)
   $errors= $validator->loginValidate($user);
   if(count($errors) == 0)
   {
-     $unNombre = $intenso->searchEmail($user->getEmail());
+     //$unNombre = $intenso->searchEmail($user->getEmail());
+     $unNombre = BaseMySql::searchEmail($user->getEmail(), 'users',$pdo);
      if($unNombre === null)
      {
        $errors['email'] = "Algunos de los datos <b>no</b> son correctos";

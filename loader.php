@@ -29,4 +29,7 @@ $register = new RegisterFile();
 //$intenso = new Json('usuario.json');
 $auth = new Auth();
 
+//$random = Querys::selectAll('users',$pdo);
+//dd($random);
+
 ?>

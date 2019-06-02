@@ -6,12 +6,15 @@
     $errors = $validator->validate($user);
     if(count($errors) === 0){
       
-
-      Querys::saveUser($user, 'users', $pdo);
-      redirect('login.php');
-      //Cortamos la ejecución.
-      exit; 
-   
+      $existingEmail = BaseMySql::searchEmail($user->getEmail(),'users',$pdo);
+      if($existingEmail !== null){
+        $errors['email']="Ya hay un <b> usuario registrado </b> con este Correo Electrónico";
+      } else {
+            Querys::saveUser($user, 'users', $pdo);
+            redirect('login.php');
+            //Cortamos la ejecución.
+            exit; 
+      }
    
       // ---> CODIGO PROGRAMACIÓN ORIENTADA A OBJETOS <--- //
       // Armar un registro para guardarlo.
