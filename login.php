@@ -15,14 +15,8 @@ if($_POST)
     if($existingEmail === null){
    
        $errors['email'] = "Rompiste todo";
-       
-     } else {
-          /* 
-          var_dump($user->getPass());
-          var_dump($existingEmail['user_password']);
-          $verificador = password_verify($user->getPass(),$existingEmail['user_password']);
-          dd($verificador); */
-          
+      
+     } else {    
 
            if($auth->validatePass($user->getPass(), $existingEmail['user_password']) != true)
           {
