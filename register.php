@@ -16,7 +16,7 @@
             exit; 
       }
    
-      // ---> CODIGO PROGRAMACIÓN ORIENTADA A OBJETOS <--- //
+      // ---> CODIGO PROGRAMACIÓN ORIENTADA A OBJETOS CON JSON<--- //
       // Armar un registro para guardarlo.
       // En caso de haber un ávatar, armarlo antes del registro
       

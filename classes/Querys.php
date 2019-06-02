@@ -8,8 +8,8 @@ class Querys{
         $stmt=$pdo->prepare($insert_usuario);
         $stmt->bindParam(':user_name',$_POST['userName']);
         $stmt->bindParam(':user_email',$_POST['email']);
-        $pass = password_hash($_POST['pass'], PASSWORD_BCRYPT);
-        $stmt->bindParam(':user_password',$pass);
+        
+        $stmt->bindParam(':user_password',password_hash($_POST['pass'],PASSWORD_DEFAULT));
         
         $avatar = RegisterFile::avatarConstruct($user->getAvatar());
         
