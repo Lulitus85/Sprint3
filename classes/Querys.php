@@ -14,7 +14,7 @@ class Querys{
         $avatar = RegisterFile::avatarConstruct($user->getAvatar());
         
         $stmt->bindParam(':user_avatar',$avatar);
-        $stmt->bindParam(':user_date',$_POST['DOBYear']);
+        $stmt->bindParam(':user_date',$_POST['fechaNac']);
 
         $stmt->execute();
 

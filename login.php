@@ -13,15 +13,17 @@ if($_POST)
      $existingEmail = BaseMySql::searchEmail($user->getEmail(), 'users',$pdo);
     //dd($existingEmail); //OJO DD!
     if($existingEmail === null){
-   
-       $errors['email'] = "Rompiste todo";
+
+       $errors['email'] = "Algunos de los datos <b>no</b> son correctos";
       
      } else {    
-
-           if($auth->validatePass($user->getPass(), $existingEmail['user_password']) != true)
+           $password_db = $existingEmail["user_password"];
+          /*  var_dump($existingEmail["user_email"]);
+           dd($password_db); */
+           if(Auth::validatePass($user->getPass(),$password_db)!=true)
           {
-            $errors['email']= "Algunos de los datos <b>no</b> son correctos";
-          } else {
+           $errors['email']= "Algunos de los datos <b>no</b> son correctos";
+          }  else {
             $auth->seteoSesion($existingEmail);
               if(isset($_POST['remember'])){
                 $auth->seteoCookie($existingEmail);
@@ -31,7 +33,7 @@ if($_POST)
                 redirect('profile.php');
               } else{
                 redirect('login.php');
-              }
+              } 
           }
      } 
   }

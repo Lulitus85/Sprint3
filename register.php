@@ -1,8 +1,16 @@
 <?php
+
+
   require 'loader.php'; //1) carga las clases requeridas y las instancias.
+
+        
+
+
+
   if($_POST){   //2) Si el usuario apretó submit.
-    $user = new User($_POST["userName"],$_POST["email"],$_POST["pass"], $_POST["rPass"], $_FILES, $_POST["DOBYear"]); 
+    $user = new User($_POST["userName"],$_POST["email"],$_POST["pass"], $_POST["rPass"], $_FILES, $_POST["fechaNac"]); 
     // 3)instanciar el usuario con el POST
+
     $errors = $validator->validate($user);
     if(count($errors) === 0){
       
@@ -121,8 +129,10 @@
 
 
         <p class="ldob" for="DOB">Fecha de Nacimiento</p>
+        <input type="date" name="fechaNac">
 
-        <div class="dob">
+
+      <!--   <div class="dob">
           <select name="DOBDay">
             <option>Day</option>
             <option value="1">1</option>
@@ -266,9 +276,9 @@
             <option value="1930">1930</option>
           </select>
 
-        </div>
-        <?php if(isset($errors['Year'])):?>
-        <span class="errors"> <?=$errors['Year'] ?></span>
+        </div> -->
+        <?php if(isset($errors['fechaNac'])):?>
+        <span class="errors"> <?=$errors['fechaNac'] ?></span>
         <?php endif;?>
         <br>
         <button class="submitRegister" type="submit" name="submit">Enviar</button>

@@ -2,9 +2,10 @@
 
 class Auth 
 {
-    public function validatePass($pass, $hash){
+    static public function validatePass($pass, $hash){
         
         return password_verify($pass, $hash);
+        
     }
 
     
@@ -16,14 +17,14 @@ class Auth
  */
       
         public function seteoSesion($user){
-            $_SESSION["name"]=$user["name"];
-            $_SESSION["email"] = $user["email"];
-            $_SESSION["avatar"]= $user["avatar"];
+            $_SESSION["name"]=$user["user_name"];
+            $_SESSION["email"] = $user["user_email"];
+            $_SESSION["avatar"]= $user["user_avatar"];
         }
     
         public function seteoCookie($user){
-            setcookie("email",$user["email"],time()+3600);
-            setcookie("pass",$user["pass"],time()+3600);
+            setcookie("email",$user["user_email"],time()+3600);
+            setcookie("pass",$user["user_password"],time()+3600);
         }
     
         public function validarUsuario(){

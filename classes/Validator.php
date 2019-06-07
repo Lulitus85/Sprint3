@@ -40,11 +40,26 @@ class Validator
         }
 
         //edad
-        if(!strcmp($_POST["DOBDay"],"Day") || !strcmp($_POST["DOBMonth"],"Month") || !strcmp($_POST["DOBYear"],"Year")){
+        
+        $tiempo = strtotime($_POST["fechaNac"]); 
+        $ahora = time(); 
+        $edad = ($ahora-$tiempo)/(60*60*24*365.25); 
+        $edad = floor($edad); 
+
+        if(empty($_POST["fechaNac"])){
+            $errors["fechaNac"] = "Debe completar su <b> Fecha de Nacimiento </b>";
+        } elseif($edad < 18)
+            {
+            $errors["fechaNac"] = "Por políticas de la empresa, sólo se habilitan usuarios <b> mayores de edad </b>";
+        }
+        
+
+
+        /* if(!strcmp($_POST["DOBDay"],"Day") || !strcmp($_POST["DOBMonth"],"Month") || !strcmp($_POST["DOBYear"],"Year")){
             $errors["Year"] = "Debe completar su <b> Fecha de Nacimiento </b>";
         } elseif($_POST["DOBYear"] >= (date("Y")-18)){
             $errors["Year"] = "Por políticas de la empresa, sólo se habilitan usuarios <b> mayores de edad </b>";
-        }
+        } */
 
         $userFile = $user->getAvatar(); 
         if($userFile != null){ 
