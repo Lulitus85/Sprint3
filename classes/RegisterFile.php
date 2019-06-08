@@ -12,8 +12,8 @@ class RegisterFile {
         $destinationFile = $destinationFile.$avatar;
         $destinationFile = $destinationFile.".".$extension;
         move_uploaded_file($sourceFile,$destinationFile);
-        $avatar = $avatar.".".$extension;
-        return $avatar;
+        $avatar = $avatar.".".$extension; 
+        return $avatar; 
     }
 
     public function userFactory(User $registro, $image){

@@ -12,6 +12,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link usuario dropdown-toggle" data-toggle="dropdown" href="profile.php"> <?=$_SESSION["name"];?>  </a>
               <ul class="dropdown-menu cascadaDos">
+              <li><a href="profile.php">Perfil</a></li>
                 <li><a href="#">Editar Perfil</a></li>
                 <li class="borderli"><a href="#">Configuración</a></li>
                 <li><a href="login.php">Cerrar Sesión

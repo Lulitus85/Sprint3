@@ -4,9 +4,6 @@
   require 'loader.php'; //1) carga las clases requeridas y las instancias.
 
         
-
-
-
   if($_POST){   //2) Si el usuario apretó submit.
     $user = new User($_POST["userName"],$_POST["email"],$_POST["pass"], $_POST["rPass"], $_FILES, $_POST["fechaNac"]); 
     // 3)instanciar el usuario con el POST
