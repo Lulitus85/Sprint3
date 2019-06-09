@@ -1,89 +1,158 @@
 <?php
 
-class Validator
-{
-    public function validate(User $user){
-        $errors = [];
+class Validator {
+    
+    public $user;
 
-        $userName=trim($user->getUserName());
-        if(isset($userName)){
-            if(empty($userName)){
-                $errors["userName"] = "El campo <b> Usuario </b> no puede estar vacío";
-            }
-        }
-
-        $email=trim($user->getEmail());
-        if(isset($email)){
-            if(empty($email)){
-                $errors["email"] = "El campo <b> Correo Electrónico </b> no puede estar vacío";
-            } else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                $errors["email"] = "El campo <b> Correo Electrónico </b> no es válido";
-            }
-        }
-
-        $pass=trim($user->getPass());
-        if(isset($pass)){
-            if($pass==""){
-                $errors["pass"] = "El campo <b> Contraseña </b> es obligatorio";
-            } else if(strlen($pass) < 6){
-                $errors["pass"] = "La <b> Contraseña </b> no puede ser menor a 6 dígitos y debe tener al menos una letra minúscula, una mayúscula y un número";
-            } else if(!preg_match('`[a-z]`',$pass) || !preg_match('`[A-Z]`',$pass)  || !preg_match('`[0-9]`',$pass)){
-                $errors["pass"] = "La <b> Contraseña </b> no puede ser menor a 6 dígitos y <b> debe tener al menos una letra minúscula, una mayúscula y un número </b>";
-            }
-        }    
-
-        $rPass=trim($user->getRpass());
-        if(isset($rPass)){
-            if($pass != $rPass){
-                $errors["pass-ver"]="Las Contraseñas no coinciden";
-            }
-        }
-
-        //edad
-        if(!strcmp($_POST["DOBDay"],"Day") || !strcmp($_POST["DOBMonth"],"Month") || !strcmp($_POST["DOBYear"],"Year")){
-            $errors["Year"] = "Debe completar su <b> Fecha de Nacimiento </b>";
-        } elseif($_POST["DOBYear"] >= (date("Y")-18)){
-            $errors["Year"] = "Por políticas de la empresa, sólo se habilitan usuarios <b> mayores de edad </b>";
-        }
-
-        $userFile = $user->getAvatar(); 
-        if($userFile != null){ 
-            if($_FILES["avatar"]["error"] != 0){
-                $errors["avatar"] = "Por favor, suba su <b> Avatar </b>";     
-            }            
-            $nameFile = $_FILES["avatar"]["name"];
-            $extension = pathinfo($nameFile,PATHINFO_EXTENSION);
-            if($extension != "png" && $extension != "jpg" && $extension != "jpeg" && $extension != "gif"){
-                $errors["avatar"] = "La imagen seleccionada debe ser <b> jpg, jpeg, png o gif </b>";
-            }
-            
-            
-        }
-        return $errors;
+    public function __construct() {
+    
+        $this->user = new MySql();
     }
 
+    public function validateName($data) {       
+        
+        if(empty($data['name'])){
+            throw new Exception('El usuario es obligatorio');
+        }
 
-    public function loginValidate(User $user)
-    {
-        $errors = array();
+        elseif(strlen($data['name']) < 4) {
+            throw new Exception('El nombre de usuario debe tener al menos 4 caracteres');
+        }
 
-        $email=trim($user->getEmail());
-        if(isset($email)){
-            if($email == ""){
-                $errors["email"] = "El campo <b> Correo Electrónico </b> no puede estar vacío";
+        foreach ($this->user->dbSearch() as $user) {
+            
+            if($user['username'] == $data['name']){                
+                throw new Exception('El nombre de usuario ingresado ya se encuentra registrado');
+            }
+            
+        }
+        
+    }
+
+    public function validateEmail($data) {    
+
+        if(empty($data['email'])){
+            throw new Exception('El email es obligatorio');
+        }
+        
+        elseif(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
+            throw new Exception('El email no es valido');
+        }
+
+        foreach ($this->user->dbSearch() as $user){
+            
+            if($user['email'] == $data['email']){
+                throw new Exception('El email ingresado ya se encuentra registrado');                
+            }
+            
+        }
+        
+    }    
+
+    public function validatePass($data){
+
+        if(empty($data['pass'])) {
+            throw new Exception('La contraseña es obligatoria');
+        }
+
+        elseif(!(strlen($data['pass']) >= 6) || !(strlen($data['pass']) <= 22)){
+            throw new Exception('La contraseña debe tener entre 6 y 22 caracteres.');
+        }
+
+        elseif(!preg_match('`[a-z]`', $data['pass']) || !preg_match('`[A-Z]`', $data['pass']) || !preg_match('`[0-9]`', $data['pass'])){
+            throw new Exception('La contraseña debe tener al menos una letra minúscula, una mayúscula y un número');
+        }
+        
+    }
+
+    public function validateRePass($data){
+
+        if(strcmp($data['pass-ver'], $data['pass'])){
+
+            throw new Exception('Las contraseñas no coinciden.');
+        }
+    }
+
+    public function validateDOB($data){    
+        
+        $dob = strtotime($data['DOBYear'] . '-'. $data['DOBMonth']. '-' . $data['DOBDay']);                
+        $age = floor((time()-$dob)/(60*60*24*365.25));         
+        
+        if(!strcmp($data['DOBDay'], 'Day') 
+            || !strcmp($data['DOBMonth'], 'Month') 
+            || !strcmp($data['DOBYear'], 'Year')) {
+                
+            throw new Exception('Ingrese su fecha de nacimiento por favor');
+        }
+        
+        elseif($age < 18){
+            throw new Exception('Debes ser mayor de edad para ingresar');
+        }
+        
+    }       
+       
+    public function validateProfilePic($file) {
+            
+            $fileType = substr($file['avatar']['type'], 0, 5);
+            
+            if($fileType == 'image' || $fileType == 'image' || $fileType == null){
+                                
+            switch($file['avatar']['error']) {
+
+                case 1:
+                throw new Exception('La imagen es demasiado grande');
+                break;
+                case 2:
+                throw new Exception('La imagen es demasiado grande');
+                break;
+                case 3:
+                throw new Exception('Hubo un error al cargar el archivo');
+                break;
+                case 4:
+                throw new Exception('Debes seleccionar una foto de perfil');
+                break;
+                case 7:
+                throw new Exception('Hubo un error al cargar el archivo');
+                break;
+                default: '';
+
             }
         }
 
-        $pass=trim($user->getPass());
-        if(isset($pass)){
-            if(empty($pass)){
-                $errors["pass"] = "El campo <b> Contraseña </b> es obligatorio";
-            }
+        else {
+            
+            throw new Exception('Tipo de archivo no valido, este debe ser JPG o PNG.');
+        }
+    }
 
+    public function validateLogin($data){
+        
+        $user = $this->user->searchUserInDB($data);
+
+        if(empty($data['name']) || empty($data['pass'])){
+
+            throw new Exception('Debes ingresar tu usuario y contraseña para continuar');
         }
 
-        return $errors;
+        elseif($user == null){
+            
+            throw new Exception('Usuario no registrado');
+        }
+
+        elseif(!password_verify($data['pass'], $user['password'])){
+
+            throw new Exception('Alguno de los datos no es correcto');
+        }
 
     }
+
+    public function inputUser($input) { 
+
+        if(isset($_POST[$input])) {
+
+            return $_POST[$input];
+        }
+    }
+    
 
 }

@@ -1,76 +1,66 @@
 <?php
 
-class Json extends Database 
-{
-    private $file;
+require 'DataBase.php';
 
-    public function __construct($file)
-    {
-        $this->file=$file;
+class Json implements DataBase{
+
+private $userDB = [];
+
+    public function dbSearch(){
+         
+        $jsonArray = explode(PHP_EOL, file_get_contents("usuarios.json"));
+        array_pop($jsonArray);
+
+        foreach ($jsonArray as $user) {
+            $usersDB[] = json_decode($user, true);
+        }
+
+        return $usersDB;
     }
-
-    public function setFile($file)
-    {
-        $this->file=$file;
-    }
-
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    public function update(){
-        //
-    }
-    public function delete(){
-        //
-    }
-
-
-    public function save($userArray)
-    {
-        $jsonUsuario = json_encode($userArray); //encripta el archivo y lo mete dentro de la variable
-        file_put_contents($this->file, $jsonUsuario. PHP_EOL, FILE_APPEND);
-    }
-
-    public function read()
-    {
-        if(file_exists($this->file)){
-            $baseDatos= file_get_contents($this->file);
-            $baseDatos = explode(PHP_EOL,$baseDatos);
-            //Aquí saco el ultimo registro, el cual está en blanco
-            array_pop($baseDatos);
-            //Aquí recooro el array y creo mi array con todos los usuarios 
-            foreach ($baseDatos as $usuarios) {
-                $arrayUsuarios[]= json_decode($usuarios,true);
-            }
-            //Aquí retorno el array de usuarios con todos sus datos
-            return $arrayUsuarios;
-        }else{
-            return null;
-        } 
-    }
-
     
-    public function searchEmail($email) //register/login
-    {
-        $result = $this->read();
-        if($result !== null){
-            foreach($result as $user)
-            {
-                if($email===$user['email'])
-                {
-                    return $user;
-                }
+
+
+    public function buildAvatar($image){
+        
+        $fileExtension = pathinfo($image["avatar"]["name"], PATHINFO_EXTENSION);
+        $sourceFile = $image["avatar"]["tmp_name"];           
+        $userAvatar = uniqid();
+        $destinationPath = dirname(__DIR__)."\\userimages\\".$userAvatar.".".$fileExtension;        
+        move_uploaded_file($sourceFile, $destinationPath);   
+        $relPath = "userimages/".$userAvatar.".".$fileExtension;    
+        return $relPath;
+    }
+
+    public function buildUser($data, $image){
+
+        $name = trim($data['name']);
+        $email = trim($data['email']);
+        $pass = password_hash(trim($data['pass']), PASSWORD_DEFAULT);
+        $avatar = $this->buildAvatar($image);
+        $dob = $data['DOBDay']."-".$data['DOBMonth']."-".$data['DOBYear'];
+        $user = new User($name, $email, $pass, $avatar, $dob);
+        return $user;
+        
+    }
+
+    public function saveInDB($user){
+        
+        $jsonUser = json_encode($user);    
+        file_put_contents('usuarios.json', $jsonUser.PHP_EOL, FILE_APPEND);
+    }
+
+    public function searchUserInDB($data){
+        
+        $userDb = $this->dbSearch();
+       
+        foreach ($userDb as $user){
+            if($user['email'] == $data['name'] 
+            || $user['userName'] == $data['name']
+            || strtolower($user['userName']) == strtolower($data['name'])){
+                return $user;
             }
         }
         return null;
-
-      }
-
-
-
-
-
+    }
 
 }

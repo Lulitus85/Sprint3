@@ -1,76 +1,62 @@
 <?php
 
-class User 
-{
+class User implements \JsonSerializable{
+
     private $userName;
     private $email;
-    private $pass;
-    private $rPass;
-    private $avatar;
-    private $year;
+    private $password;    
+    private $profilePic;
+    private $dob;
 
-    public function __construct($userName=null,  $email, $pass, $rPass=null, $avatar=null, $year=null) 
-    {
-        $this->userName = $userName;     
-        $this->email = $email;
-        $this->pass = $pass;
-        $this->rPass=$rPass;
-        $this->avatar=$avatar;
-        $this->year=$year;
+    public function __construct(string $userName, string $email, string $password, string $profilePic, string $dob){
+
+             $this->userName = $userName;
+             $this->email = $email;
+             $this->password = $password;        
+             $this->profilePic = $profilePic;
+             $this->dob = $dob;
+
     }
 
-    //SETS//
+    public function jsonSerialize(){
 
-    public function setUserName($userName){
-        $this->userName = $userName;
-    }
-        
-    public function setEmail($email){
-        $this->email = $email;
-    }
+        $user = get_object_vars($this);
 
-    public function setPass($pass){
-        $this->pass = $pass;
+        return $user;
     }
-
-    public function setRpass($rPass){
-        $this->rPass = $rPass;
-    }
-
-    public function setAvatar($avatar){
-        $this->avatar = $avatar;
-    }
-
-    public function setYear($year){
-        $this->year = $year;
-    }
-
-    //GETS//
 
     public function getUserName(){
         return $this->userName;
     }
-        
     public function getEmail(){
         return $this->email;
     }
 
-    public function getPass(){
-        return $this->pass;
+    public function getPassword(){
+        return $this->password;
     }
-
-    public function getRpass(){
-        return $this->rPass;
+   
+    public function getProfilePic(){
+        return $this->profilePic;
     }
-
-    public function getAvatar(){
-        return $this->avatar;
+    public function getDob(){
+        return $this->dob;
     }
-
-    public function getYear(){
-        return $this->year;
-    }
-
     
+    public function setUserName($newUserName){
+        $this->userName = $newUserName;
+   }
+
+    public function setEmail($newEmail){
+        $this->email = $newEmail;
+    }
+
+    public function setProfilePic($newProfilePic){
+        $this->profilePic = $newProfilePic;
+    }
+    
+    public function setDob($newDob){
+        $this->dob = $newDob;
+    }    
 
 }
