@@ -75,12 +75,10 @@ class Validator {
 
     public function validateDOB($data){    
         
-        $dob = strtotime($data['DOBYear'] . '-'. $data['DOBMonth']. '-' . $data['DOBDay']);                
+        $dob = strtotime($data['dob']);                
         $age = floor((time()-$dob)/(60*60*24*365.25));         
         
-        if(!strcmp($data['DOBDay'], 'Day') 
-            || !strcmp($data['DOBMonth'], 'Month') 
-            || !strcmp($data['DOBYear'], 'Year')) {
+        if($data['dob'] == null) {
                 
             throw new Exception('Ingrese su fecha de nacimiento por favor');
         }

@@ -51,7 +51,7 @@ class MySql implements DataBase {
         $pass = password_hash(trim($data['pass']), PASSWORD_DEFAULT);
         $avatar = $this->buildAvatar($image);
         date_default_timezone_set('America/Argentina/Buenos_Aires');
-        $dob = date_create($data['DOBYear'] . "-". $data['DOBMonth']. "-" . $data['DOBDay']);        
+        $dob = date_create($data['dob']);        
         $dob = date_format($dob,"Y-m-d");
         $user = new User($name, $email, $pass, $avatar, $dob);
         return $user;

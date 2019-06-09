@@ -9,7 +9,7 @@ require 'controllers/Loginator.php';
   <div class="cajita">
     
   <?php
-    if(isset($errors)):?>
+    if(count($errors) > 0):?>
     <img src="img/crash-01.svg" alt="rompiste_todo_mach@" width=40%>
   <?php endif;?>
   
