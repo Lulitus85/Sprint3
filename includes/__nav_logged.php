@@ -21,7 +21,7 @@
             <a href="#">Configuración</a>
           </li>
           <li>
-            <a href="login.php">Cerrar Sesión</a>
+            <a href="logout.php">Cerrar Sesión</a>
           </li>
         </ul>
       </li>

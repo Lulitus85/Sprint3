@@ -6,13 +6,13 @@ $session = new Session();
 
 session_start();
 
-if(!isset($_SESSION['name']) && $_SERVER['REQUEST_URI'] == '/VinTrash-OOP/profile.php'){
+if(!isset($_SESSION['name']) && preg_match('/\bprofile.php\b/', $_SERVER['REQUEST_URI'])){
     
     header('Location: login.php');
 
 }
 
-if(isset($_SESSION['name']) && $_SERVER['REQUEST_URI'] == '/VinTrash-OOP/login.php'){
+if(isset($_SESSION['name']) && preg_match('/\blogin.php\b/', $_SERVER['REQUEST_URI'])){
     
     header('Location: login.php');
 
@@ -29,9 +29,9 @@ else {
 
     }
 
-if($_SERVER['REQUEST_URI'] == '/VinTrash-OOP/logout.php'){
-
+if(preg_match('/\blogout.php\b/', $_SERVER['REQUEST_URI'])){
+    
     $session->endSession();
-    header('location: Login.php');
+    header('location: login.php');
     
 }

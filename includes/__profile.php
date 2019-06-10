@@ -2,8 +2,7 @@
   <div class="card" style="width: 18rem;">
     <img class="card-img-top" src="<?=$_SESSION['avatar'];?>" alt="foto usuario"> <!--aca embebo la foto de perfil del usuario en la carta-->
     <div class="card-body">
-      <p class="card-text">Bienvenid@ <?=$_SESSION['name'];?></p>
-      <h6><a href = "logout.php">Cerrar sesion</a></h6> <!-- aca es el link de cerrar sesion -->
+      <p class="card-text">Bienvenid@ <?=$_SESSION['name'];?></p>      
     </div>
   </div>
   <div class="caja-productos">
